@@ -53,4 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    /*Get the enpoints visit by the user */
+    public function endpoints()
+    {
+        return $this->hasMany(Endpoint::class);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\StatisticMiddleware;
 use App\Models\Product;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ class ReviewController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum');
+        $this->middleware(StatisticMiddleware::class);
     }
 
     /**

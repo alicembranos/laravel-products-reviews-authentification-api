@@ -10,12 +10,20 @@ class Product extends Model
     use HasFactory;
 
     /*Get the reviews of the product */
-    public function reviews(){
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
     }
 
     /*Get the user that added the product */
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    /*Get the reviews of the product */
+    public function endpoints()
+    {
+        return $this->hasMany(Endpoint::class);
     }
 }

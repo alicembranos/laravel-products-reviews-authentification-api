@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\StatisticMiddleware;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,9 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['index', 'show']);
+        $this->middleware('auth:sanctum');
+        // $this->middleware('auth:sanctum')->except(['index', 'show']);
+        $this->middleware(StatisticMiddleware::class);
     }
 
     /**
@@ -24,7 +27,7 @@ class ProductController extends Controller
             ->latest()
             ->paginate(10);
 
-        return response()->json(['products' => $products]);
+        return response()->json(['products' => $products], 200);
     }
 
     /**
@@ -49,7 +52,7 @@ class ProductController extends Controller
         $product->save();
 
         $request->user()->products()->save($product);
-        return response()->json(['message' => 'Product Added', 'product' => $product]);
+        return response()->json(['message' => 'Product Added', 'product' => $product], 200);
     }
 
     /**
@@ -64,7 +67,7 @@ class ProductController extends Controller
             $query->latest();
         }, 'user']);
 
-        return response()->json(['product' => $product]);
+        return response()->json(['product' => $product], 200);
     }
 
     /**
